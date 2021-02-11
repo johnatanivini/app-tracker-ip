@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import IconArrow from '../assets/iconArrow.svg'
 
-const FormField = styled.div`
+const FormField = styled.form`
   display:flex;
   flex-flow: row nowrap;
   justify-content:center;
@@ -51,30 +50,14 @@ const FormField = styled.div`
 
 const SearchBox = () => {
 
-    const [busca, setBusca] = useState('')
-
-    const searchIp = event => {
-
-        if(busca === ''){
-            console.log('Por favor informe um IP ou dominio')
-            return;
-        }
-
-        console.log('Aguarde carregando mapa')
-    }
-
-    const changeInput = event => {
-        setBusca(event.target.value)
-    }
-
     return (
         <FormField>
-        <input value={busca} onChange={changeInput} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
-        <button type="button" onClick={searchIp}>
+        <input value="" placeholder='Busque por um IP ou Domínio' type="text" name="s" />
+        <button type="button">
             <img src={IconArrow} alt="" />
         </button>
         </FormField>
     )
 }
 
-export default SearchBox;
+export default SearchBox
