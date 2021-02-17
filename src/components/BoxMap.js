@@ -1,10 +1,27 @@
+import 'leaflet/dist/leaflet.css'
+import { useContext, useState } from 'react'
+import styled from 'styled-components'
+import { MapContext } from '../context/MapContext'
+import { MapContainer as Map, Marker, Popup, TileLayer} from 'react-leaflet'
+import Leaflet from 'leaflet'
 
-const BoxMap = e => {
+const MapId = styled.div``
+
+const BoxMap = () => {  
+
+  const {dadosMapa} = useContext(MapContext)
+
+
   return (
 
-      <div>
-        Carregar o mapa aqui....
-      </div>
+      <MapId>
+        <Map>
+
+        </Map>
+        <pre>
+          {JSON.stringify(dadosMapa, null, 4)}
+        </pre>
+      </MapId>
     
   )
 }

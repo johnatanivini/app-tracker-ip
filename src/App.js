@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import BoxMap from './components/BoxMap'
 import SearchBox from './components/SearchBox'
+import MapProvider from './providers/MapProvider'
 
 const Background = styled.div`
   background: #4949a7 url('/pattern-bg.png') no-repeat left top;
@@ -28,14 +29,15 @@ const Map = styled.div`
 function App() {
 
   return (
-    
-    <Background>
-     <Map>
-        <h1>IP TRACKER</h1>
-        <SearchBox />
-        <BoxMap />
-     </Map>
-    </Background>
+      <MapProvider>
+        <Background>
+            <Map>
+              <h1>IP TRACKER</h1>
+              <SearchBox />
+              <BoxMap />
+            </Map>
+        </Background>
+      </MapProvider>
     
   )
 }

@@ -1,5 +1,7 @@
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import IconArrow from '../assets/iconArrow.svg'
+import { MapContext } from '../context/MapContext'
 
 const FormField = styled.form`
   display:flex;
@@ -50,12 +52,25 @@ const FormField = styled.form`
 
 const SearchBox = () => {
 
+    const {setDomain} = useContext(MapContext)
+
+    const [ip, setIp] = useState('')
+
+    const handleSubmit = e => {
+      e.preventDefault()
+      setDomain(ip)
+    }
+
+    const handleInputChange = e => {
+      setIp(e.target.value)
+    }
+
     return (
-        <FormField>
-        <input value="" placeholder='Busque por um IP ou Domínio' type="text" name="s" />
-        <button type="button">
-            <img src={IconArrow} alt="" />
-        </button>
+        <FormField onSubmit={handleSubmit}>
+          <input onChange={handleInputChange} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
+          <button type="submit" disabled={ip.length === 0 ? true : false}>
+              <img src={IconArrow} alt="" />
+          </button>
         </FormField>
     )
 }
