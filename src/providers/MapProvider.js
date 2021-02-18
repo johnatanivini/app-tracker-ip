@@ -23,11 +23,13 @@ const MapProvider = ({children}) => {
         setGeoIpFy(domain)
 
         setIsLoading(true)
+        
+        setDadosMapa(false)
+        setLocation(false)
 
         const dados = await GetDomain()
         
         setDadosMapa(dados)
-
         setLocation([dados.location?.lat, dados.location?.lng])
 
         console.log(location)

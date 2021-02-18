@@ -19,9 +19,9 @@ const BoxMap = () => {
   })
 
   return (    
-
-        <MapContainer
-          center={initialPosition}
+      <>
+        {location && <MapContainer
+          center={location}
           zoom={5}
           scrollWheelZoom={true}
           style={{width:'100vw',height:'90vh', marginTop:'10vh'}}
@@ -51,7 +51,8 @@ const BoxMap = () => {
             </Popup>
           }
           </Marker>}
-        </MapContainer>
+        </MapContainer> }
+      </>
   )
 }
 

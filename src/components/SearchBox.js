@@ -69,7 +69,7 @@ const SearchBox = () => {
 
     return (
         <FormField onSubmit={handleSubmit}>
-          <input onChange={handleInputChange} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
+          <input onChange={handleInputChange} value={ip} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
           
           <button type="submit" disabled={ip.length === 0 ? true : false}>
               {!isLoading && <img src={IconArrow} alt="" />}
