@@ -63,6 +63,7 @@ const SearchBox = () => {
       setDomain(ip)
     }
 
+
     const handleInputChange = e => {
       setIp(e.target.value)
     }
