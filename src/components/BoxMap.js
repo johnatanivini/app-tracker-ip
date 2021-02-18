@@ -1,28 +1,57 @@
 import 'leaflet/dist/leaflet.css'
-import { useContext, useState } from 'react'
-import styled from 'styled-components'
+import { useContext, useEffect, useState } from 'react'
 import { MapContext } from '../context/MapContext'
-import { MapContainer as Map, Marker, Popup, TileLayer} from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, useMapEvent, useMapEvents} from 'react-leaflet'
+import iconLocation from './../assets/iconLocation.svg'
 import Leaflet from 'leaflet'
 
-const MapId = styled.div``
-
-const BoxMap = () => {  
-
-  const {dadosMapa} = useContext(MapContext)
 
 
-  return (
+const BoxMap = () => {
 
-      <MapId>
-        <Map>
+  const {dadosMapa, location, initialPosition} = useContext(MapContext)
 
-        </Map>
-        <pre>
-          {JSON.stringify(dadosMapa, null, 4)}
-        </pre>
-      </MapId>
-    
+  const mapIcon = Leaflet.icon({
+    iconUrl:iconLocation,
+    iconSize:[58,58],
+    iconAnchor:[29,68],
+    popupAnchor:[170,2]
+  })
+
+  return (    
+
+        <MapContainer
+          center={initialPosition}
+          zoom={5}
+          scrollWheelZoom={true}
+          style={{width:'100vw',height:'90vh', marginTop:'10vh'}}
+          flyTo={location}
+        > 
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {location && <Marker
+            icon={mapIcon}
+            position={location}
+            
+          >
+          
+            {dadosMapa && <Popup
+                closeButton={false}
+                minWidth={240}
+                maxWidth={240}
+            >
+            
+              <h3>{dadosMapa.as.name}</h3>
+              <p>{`${dadosMapa.location.country } - ${ dadosMapa.location.region}, ${dadosMapa.location.city}`}</p>
+              <p>{dadosMapa.as.domain}</p>
+              <p>{dadosMapa.isp}</p>
+              <p>{dadosMapa.ip}</p>
+            </Popup>
+          }
+          </Marker>}
+        </MapContainer>
   )
 }
 

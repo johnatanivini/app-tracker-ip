@@ -1,31 +1,54 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MapContext} from '../context/MapContext'
-import { getDomain } from '../services/GetDomain'
+import env from 'react-dotenv'
+
+
 
 
 const MapProvider = ({children}) => {
 
+    const initialPosition = [-3.731862, -38.526669]
+
+    const[location, setLocation] = useState(initialPosition)
+
     const[geoIpFy, setGeoIpFy] = useState('')
 
-    const[dadosMapa, setDadosMapa] = useState({})
+    const[dadosMapa, setDadosMapa] = useState(false)
 
-    const loadMapa = async () => {
-        /// consumir API
-         const dados  = await getDomain(geoIpFy)
-        /// obter retorno da api
-        ///setar estado
-        setDadosMapa(dados)
-    }
+    const[isLoading, setIsLoading] = useState(false)
 
 
-    const setDomain = (domain) => {
+    const setDomain = async (domain) => {
+        
         setGeoIpFy(domain)
-        loadMapa()
+
+        setIsLoading(true)
+
+        const dados = await GetDomain()
+        
+        setDadosMapa(dados)
+
+        setLocation([dados.location?.lat, dados.location?.lng])
+
+        console.log(location)
+
+        setIsLoading(false)
+       
     }
+
+    const apiKey=`?apiKey=${env.IPFY_API_KEY}`
+
+    async function  GetDomain(){
+        
+        const res = await fetch(`${env.IPFY_API_URL}${apiKey}&domain=${geoIpFy}`);
+        const json = await res.json()
+        return json
+    }
+
 
     return (
         
-        <MapContext.Provider value={{geoIpFy, setDomain, dadosMapa}}>
+        <MapContext.Provider value={{geoIpFy, setDomain, dadosMapa, isLoading, location, initialPosition}}>
             {children}
         </MapContext.Provider>
         
