@@ -28,6 +28,7 @@ const MapLayer  = ({mapIcon,dadosMapa, location}) => {
           >
 
           {dadosMapa && <Popup
+                autoPan={true}
                 closeButton={false}
             >
             
@@ -65,12 +66,19 @@ const BoxMap = () => {
   useEffect(() => {
     const fetchData = async () => { 
       //const res = await fetch(`${env.IPFY_API_URL}?apiKey=${env.IPFY_API_KEY}&domain=${geoIpFy}`);
-      const res = await  fetch(`http://localhost:3001/getLocation/${geoIpFy}`)
-      const json = await res.json()
-      console.log('carregando json',json)
-      setDadosMapa(json)
-      setLocation([json.location?.ltd,json.location.lng])
-      
+      const res = await  fetch(`http://localhost:3001/getLocation/${geoIpFy}`).then((result) => {
+        return result.json()
+      }).then((data) => {
+
+        const {location:{ltd,lng}} = data;
+        setDadosMapa(data)
+        setLocation([ltd,lng])
+
+      }).catch((error) => {
+        setDadosMapa(null)
+        setLocation(initialPosition)
+        console.log('Não encontramos!')
+      })
     }
 
     fetchData()
@@ -85,7 +93,7 @@ const BoxMap = () => {
           markerZoomAnimation={true}
           zoomAnimation={true}
           center={location}
-          zoom={5}
+          zoom={15}
           scrollWheelZoom={true}
           style={{width:'100vw',height:'90vh', marginTop:'10vh'}}
           flyTo={location}
