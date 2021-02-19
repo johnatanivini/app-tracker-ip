@@ -1,10 +1,10 @@
 import 'leaflet/dist/leaflet.css'
 import { useContext, useEffect, useState} from 'react'
 import { MapContext } from '../context/MapContext'
-import { MapContainer, Marker, Popup, TileLayer, useMapEvent, useMapElement, MapConsumer, useMap} from 'react-leaflet'
-import env from 'react-dotenv'
+import { MapContainer, Marker, Popup, TileLayer, useMap} from 'react-leaflet'
 import iconLocation from './../assets/iconLocation.svg'
 import Leaflet from 'leaflet'
+import { getApiById } from '../api/db'
 
 
 const initialPosition = [-3.731862, -38.526669]
@@ -64,24 +64,36 @@ const BoxMap = () => {
   })
 
   useEffect(() => {
-    const fetchData = async () => { 
-      //const res = await fetch(`${env.IPFY_API_URL}?apiKey=${env.IPFY_API_KEY}&domain=${geoIpFy}`);
-      const res = await  fetch(`http://localhost:3001/getLocation/${geoIpFy}`).then((result) => {
-        return result.json()
-      }).then((data) => {
+    // const fetchData = async () => { 
+    //   //const res = await fetch(`${env.IPFY_API_URL}?apiKey=${env.IPFY_API_KEY}&domain=${geoIpFy}`);
+    //   await  fetch(`http://localhost:3001/getLocation/${geoIpFy}`).then((result) => {
+    //     return result.json()
+    //   }).then((data) => {
 
+    //     const {location:{ltd,lng}} = data;
+    //     setDadosMapa(data)
+    //     setLocation([ltd,lng])
+
+    //   }).catch((error) => {
+    //     setDadosMapa(null)
+    //     setLocation(initialPosition)
+    //     console.log('Não encontramos!')
+    //   })
+    // }
+
+    getApiById(geoIpFy)
+      .then((response) => response)
+      .then((data) => {
         const {location:{ltd,lng}} = data;
         setDadosMapa(data)
         setLocation([ltd,lng])
+    }).catch((error) => {
+       console.log(error)
+       setDadosMapa(null)
+       setLocation(initialPosition)
+       console.log('Não encontramos!')
+    })
 
-      }).catch((error) => {
-        setDadosMapa(null)
-        setLocation(initialPosition)
-        console.log('Não encontramos!')
-      })
-    }
-
-    fetchData()
 
   },[geoIpFy])
 
@@ -95,7 +107,7 @@ const BoxMap = () => {
           center={location}
           zoom={15}
           scrollWheelZoom={true}
-          style={{width:'100vw',height:'90vh', marginTop:'10vh'}}
+          style={{width:'100vw',height:'90vh', marginTop:'2vh'}}
           flyTo={location}
         > 
           

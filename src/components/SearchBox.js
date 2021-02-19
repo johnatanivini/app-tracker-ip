@@ -52,6 +52,21 @@ const FormField = styled.form`
 
 `
 
+const TextBox = styled.div`
+  display:flex;
+  flex-flow: column nowrap;
+  margin-top: 10px;
+
+  p {
+    color: var(--contrastText);
+
+    span {
+      color: var(--secondary);
+    }
+  }
+
+`
+
 const SearchBox = () => {
 
     const  {setDomain,isLoading} = useContext(MapContext)
@@ -69,6 +84,7 @@ const SearchBox = () => {
     }
 
     return (
+      <>
         <FormField onSubmit={handleSubmit}>
           <input onChange={handleInputChange} value={ip} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
           
@@ -76,7 +92,13 @@ const SearchBox = () => {
               {!isLoading && <img src={IconArrow} alt="" />}
               {isLoading && <ReactLoading color="white" type="bars" />}
           </button>
+          
         </FormField>
+        <TextBox>
+          <p>This is only demo example, has no api integreted.</p>
+          <p>Use the domain <span>gov.br</span> ou <span>cloudflare.com</span> for test.</p>
+        </TextBox>
+      </>
     )
 }
 
