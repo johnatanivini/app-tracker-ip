@@ -80,25 +80,25 @@ const BoxMap = () => {
     //     console.log('Não encontramos!')
     //   })
     // }
-
     getApiById(geoIpFy)
       .then((response) => response)
       .then((data) => {
         const {location:{ltd,lng}} = data;
         setDadosMapa(data)
         setLocation([ltd,lng])
+      
     }).catch((error) => {
        console.log(error)
        setDadosMapa(null)
        setLocation(initialPosition)
        console.log('Não encontramos!')
     })
-
-
   },[geoIpFy])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setDadosCarregados(dadosMapa)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dadosMapa])
 
 

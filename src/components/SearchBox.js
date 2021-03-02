@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import IconArrow from '../assets/iconArrow.svg'
 import { MapContext } from '../context/MapContext'
-import ReactLoading from 'react-loading'
 
 const FormField = styled.form`
   display:flex;
@@ -70,7 +69,7 @@ const TextBox = styled.div`
 
 const SearchBox = () => {
 
-    const  {setDomain,isLoading} = useContext(MapContext)
+    const  {setDomain} = useContext(MapContext)
 
     const [ip, setIp] = useState('')
 
@@ -95,8 +94,7 @@ const SearchBox = () => {
           <input onChange={handleInputChange} value={ip} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
           
           <button type="submit" disabled={ip.length === 0 ? true : false}>
-              {!isLoading && <img src={IconArrow} alt="" />}
-              {isLoading && <ReactLoading color="white" type="bars" />}
+              <img src={IconArrow} alt="" />
           </button>
           
         </FormField>

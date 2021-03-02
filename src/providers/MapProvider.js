@@ -4,7 +4,8 @@ import { MapContext} from '../context/MapContext'
 const MapProvider = ({children}) => {
 
     const[geoIpFy, setGeoIpFy] = useState('gov.br')
-    const [ dados, setDados] = useState(null)
+    const [dados, setDados] = useState(null)
+
     const setDomain = async (domain) => {
 
         setGeoIpFy(domain)       
