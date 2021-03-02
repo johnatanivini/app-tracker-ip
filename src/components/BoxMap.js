@@ -51,7 +51,7 @@ const MapLayer  = ({mapIcon,dadosMapa, location}) => {
 const BoxMap = () => {
 
 
-  const {geoIpFy} = useContext(MapContext)
+  const {geoIpFy, setDadosCarregados} = useContext(MapContext)
 
   const [location, setLocation] = useState(initialPosition)
   const [dadosMapa, setDadosMapa] = useState(null)
@@ -96,6 +96,10 @@ const BoxMap = () => {
 
 
   },[geoIpFy])
+
+  useEffect(() => {
+    setDadosCarregados(dadosMapa)
+  }, [dadosMapa])
 
 
   return (    

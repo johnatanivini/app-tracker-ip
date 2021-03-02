@@ -56,6 +56,7 @@ const TextBox = styled.div`
   display:flex;
   flex-flow: column nowrap;
   margin-top: 10px;
+  margin-bottom: 30px;
 
   p {
     color: var(--contrastText);
@@ -85,7 +86,12 @@ const SearchBox = () => {
 
     return (
       <>
+      <TextBox>
+          <p>This is only demo example, has no api integreted.</p>
+          <p>Use the domain <span>gov.br</span> ou <span>cloudflare.com</span> for test.</p>
+        </TextBox>
         <FormField onSubmit={handleSubmit}>
+          
           <input onChange={handleInputChange} value={ip} placeholder='Busque por um IP ou Domínio' type="text" name="s" />
           
           <button type="submit" disabled={ip.length === 0 ? true : false}>
@@ -94,10 +100,7 @@ const SearchBox = () => {
           </button>
           
         </FormField>
-        <TextBox>
-          <p>This is only demo example, has no api integreted.</p>
-          <p>Use the domain <span>gov.br</span> ou <span>cloudflare.com</span> for test.</p>
-        </TextBox>
+        
       </>
     )
 }

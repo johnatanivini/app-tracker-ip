@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import BoxMap from './components/BoxMap'
+import Painel from './components/Panel'
 import SearchBox from './components/SearchBox'
 import MapProvider from './providers/MapProvider'
 
@@ -34,6 +35,7 @@ function App() {
             <Map>
               <h1>IP TRACKER</h1>
               <SearchBox />
+              <Painel />
               <BoxMap />
             </Map>
         </Background>
